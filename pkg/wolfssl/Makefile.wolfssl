@@ -2,11 +2,11 @@
 # Default SSL/TLS source files                                #
 #-------------------------------------------------------------#
 SRC :=  src/internal.c \
-        src/io.c \
+        src/wolfio.c \
         src/keys.c \
         src/ssl.c \
-        src/tls.c
-
+        src/tls.c 
+		
 #-------------------------------------------------------------#
 # Optional SSL/TLS source files                               #
 #-------------------------------------------------------------#
