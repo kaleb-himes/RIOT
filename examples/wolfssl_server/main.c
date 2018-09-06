@@ -49,17 +49,14 @@
 int main(void)
 {
     int                sockfd;
-    int                connd;
     struct sockaddr_in servAddr;
     struct sockaddr_in clientAddr;
     socklen_t          size = sizeof(clientAddr);
     char               buff[256];
-    size_t             len;
     int                shutdown = 0;
 
     /* declare wolfSSL objects */
     WOLFSSL_CTX* ctx;
-    WOLFSSL*     ssl;
 
     puts("This is the wolfSSL Server!");
     puts("Server is running on 127.0.0.1 and listening on port 11111");
@@ -126,6 +123,9 @@ int main(void)
 
     /* Continue to accept clients until shutdown is issued */
     while (!shutdown) {
+        int  connd;
+        size_t len;
+        WOLFSSL* ssl;
         printf("Waiting for a connection...\n");
 
         /* Accept client connections */
