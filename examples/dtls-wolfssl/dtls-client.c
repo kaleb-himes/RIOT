@@ -87,11 +87,7 @@ int dtls_client(int argc, char **argv)
         puts("ERROR: Unable to create DTLS sock");
         return -1;
     }
-
-//    sock_udp_send(&sk->conn.udp, buf, strlen(buf),  NULL);
-
     wolfSSL_CTX_set_verify(sk->ctx, SSL_VERIFY_NONE, 0);
-    
 
     /* Load certificate file for the DTLS client */
     if (wolfSSL_CTX_use_certificate_buffer(sk->ctx, server_cert,
@@ -109,7 +105,6 @@ int dtls_client(int argc, char **argv)
         }
         wolfSSL_SetIOReadCtx(sk->ssl, sk);
         wolfSSL_SetIOWriteCtx(sk->ssl, sk);
-//        wolfSSL_dtls_set_using_nonblock(sk->ssl, 1);
         printf("connecting to server...\n");
         ret = wolfSSL_connect(sk->ssl);
         if (ret != SSL_SUCCESS) {
@@ -133,4 +128,3 @@ int dtls_client(int argc, char **argv)
     sk->ssl = NULL;
     return 0;
 }
-/*---------------------------------------------------------------------------*/
