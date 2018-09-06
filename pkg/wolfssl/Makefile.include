@@ -2,4 +2,5 @@ CFLAGS += -DWOLFSSL_USER_SETTINGS=1
 CFLAGS += -DWOLFSSL_RIOT_OS=1
 INCLUDES += -I$(PKGDIRBASE)/../../../
 INCLUDES += -I$(PKGDIRBASE)/wolfssl
+INCLUDES += -I$(RIOTBASE)/pkg/wolfssl/sock_tls
 DIRS += $(RIOTBASE)/pkg/wolfssl/sock_tls

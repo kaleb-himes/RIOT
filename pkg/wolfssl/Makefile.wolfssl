@@ -12,13 +12,13 @@ SRC :=  src/internal.c \
 #-------------------------------------------------------------#
 
 # Add to src when using build option: HAVE_OCSP
-#SRC +=  src/ocsp.c
+SRC +=  src/ocsp.c
 
 # Add to src when using build option: HAVE_CRL
-#SRC +=  src/crl.c
+SRC +=  src/crl.c
 
 # Add to src when using build option: WOLFSSL_TLS13
-#SRC +=  src/tls13.c
+SRC +=  src/tls13.c
 
 
 #-------------------------------------------------------------#
@@ -45,34 +45,34 @@ SRC +=  wolfcrypt/src/arc4.c
 SRC +=  wolfcrypt/src/asn.c
 
 # Add to src when using build option: HAVE_BLAKE2
-#SRC +=  wolfcrypt/src/blake2b.c
+SRC +=  wolfcrypt/src/blake2b.c
 
 # Add to src when using build option: HAVE_CAMELLIA
-#SRC +=  wolfcrypt/src/camellia.c
+SRC +=  wolfcrypt/src/camellia.c
 
 # Add to src when using build option: HAVE_CHACHA
-#SRC +=  wolfcrypt/src/chacha.c
+SRC +=  wolfcrypt/src/chacha.c
 
 # Add to src when using build option(s): | HAVE_CHACHA
 #                                        | &&
 #                                        | HAVE_POLY1305
-#SRC +=  wolfcrypt/src/chacha20_poly1305.c
+SRC +=  wolfcrypt/src/chacha20_poly1305.c
 
 # Add to src when using build option(s): | HAVE_CMAC
 #                                        | &&
 #                                        | !NO_AES
 #                                        | &&
 #                                        | WOLFSSL_AES_DIRECT
-#SRC +=  wolfcrypt/src/cmac.c
+SRC +=  wolfcrypt/src/cmac.c
 
 #Add to src when NOT using build option: NO_CODING
 SRC +=  wolfcrypt/src/coding.c
 
 # Add to src when using build option: HAVE_LIBZ
-#SRC +=  wolfcrypt/src/compress.c
+SRC +=  wolfcrypt/src/compress.c
 
 # Add to src when using build option: HAVE_CURVE25519
-#SRC +=  wolfcrypt/src/curve25519.c
+SRC +=  wolfcrypt/src/curve25519.c
 
 #Add to src when NOT using build option: NO_DES3
 SRC +=  wolfcrypt/src/des3.c
@@ -87,7 +87,7 @@ SRC +=  wolfcrypt/src/dsa.c
 SRC +=  wolfcrypt/src/ecc.c
 
 # Add to src when using build option: HAVE_ED25519
-#SRC +=  wolfcrypt/src/ed25519.c
+SRC +=  wolfcrypt/src/ed25519.c
 
 # FILE CURRENTLY INCLUDED INLINE: Future refactor will change
 # this default functionality and this line will then need
@@ -97,30 +97,30 @@ SRC +=  wolfcrypt/src/ecc.c
 # Add to src when using build option(s): | ( HAVE_CURVE25519 || HAVE_ED25519 )
 #                                        | &&
 #                                        | ( CURVE25519_SMALL || ED25519_SMALL )
-#SRC +=  wolfcrypt/src/fe_operations.c
-#SRC +=  wolfcrypt/src/fe_low_mem.c
+SRC +=  wolfcrypt/src/fe_operations.c
+SRC +=  wolfcrypt/src/fe_low_mem.c
 
 # Add to src when using build option(s): | HAVE_ED25519
 #                                        | &&
 #                                        | ED25519_SMALL
-#SRC +=  wolfcrypt/src/ge_operations.c
-#SRC +=  wolfcrypt/src/ge_low_mem.c
+SRC +=  wolfcrypt/src/ge_operations.c
+SRC +=  wolfcrypt/src/ge_low_mem.c
 
 #Add to src when NOT using build option: NO_HMAC
 SRC +=  wolfcrypt/src/hmac.c
 
 # Add to src when using build option: HAVE_HC128
-#SRC +=  wolfcrypt/src/hc128.c
+SRC +=  wolfcrypt/src/hc128.c
 
 # Add to src when using build option: HAVE_IDEA
-#SRC +=  wolfcrypt/src/idea.c
+SRC +=  wolfcrypt/src/idea.c
 
 #Add to src when using NORMAL MATH libraries
 #(Default if not using build option: USE_FAST_MATH)
-#SRC +=  wolfcrypt/src/integer.c
+SRC +=  wolfcrypt/src/integer.c
 
 # Add to src when using build option: WOLFSSL_MD2
-#SRC +=  wolfcrypt/src/md2.c
+SRC +=  wolfcrypt/src/md2.c
 
 #Add to src when NOT using build option: NO_MD4
 SRC +=  wolfcrypt/src/md4.c
@@ -135,13 +135,13 @@ SRC +=  wolfcrypt/src/memory.c
 #SRC +=  wolfcrypt/src/misc.c
 
 # Add to src when using build option: HAVE_PKCS7
-#SRC +=  wolfcrypt/src/pkcs7.c
+SRC +=  wolfcrypt/src/pkcs7.c
 
 #Add to src when NOT using EITHER build option(s): NO_ASN && NO_PWDBASED
 SRC +=  wolfcrypt/src/pkcs12.c
 
 # Add to src when using build option: HAVE_POLY1305
-#SRC +=  wolfcrypt/src/poly1305.c
+SRC +=  wolfcrypt/src/poly1305.c
 
 #Add to src when NOT using build option: NO_PWDBASED
 SRC +=  wolfcrypt/src/pwdbased.c
@@ -153,7 +153,7 @@ SRC +=  wolfcrypt/src/rabbit.c
 SRC +=  wolfcrypt/src/random.c
 
 # Add to src when using build option: WOLFSSL_RIPEMD
-#SRC +=  wolfcrypt/src/ripemd.c
+SRC +=  wolfcrypt/src/ripemd.c
 
 #Add to src when NOT using build option: NO_RSA
 SRC +=  wolfcrypt/src/rsa.c
@@ -165,18 +165,21 @@ SRC +=  wolfcrypt/src/sha.c
 SRC +=  wolfcrypt/src/sha256.c
 
 # Add to src when using build option: WOLFSSL_SHA3
-#SRC +=  wolfcrypt/src/sha3.c
+SRC +=  wolfcrypt/src/sha3.c
 
 # Add to src when using build option: WOLFSSL_SHA512 || WOLFSSL_SHA384
-#SRC +=  wolfcrypt/src/sha512.c
+SRC +=  wolfcrypt/src/sha512.c
 
 #Add to src when NOT using build option: NO_SIG_WRAPPER
 SRC +=  wolfcrypt/src/signature.c
 
 # Add to src when using build option: WOLFCRYPT_HAVE_SRP
-#SRC +=  wolfcrypt/src/srp.c
+SRC +=  wolfcrypt/src/srp.c
 
 #Add to src when using build option: USE_FAST_MATH
 SRC += wolfcrypt/src/tfm.c
+
+#Add to enable wolfcrypt self tests
+SRC += wolfcrypt/test/test.c
 
 include $(RIOTBASE)/Makefile.base

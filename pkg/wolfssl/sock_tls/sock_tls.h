@@ -14,8 +14,8 @@
 #define MODE_TLS 0
 #define MODE_DTLS 1
 
-void dtls_socket_close(sock_tls_t *sk);
-void dtls_set_endpoint(sock_tls_t *sk, const sock_udp_ep_t *addr);
+void sock_dtls_close(sock_tls_t *sk);
+void sock_dtls_set_endpoint(sock_tls_t *sk, const sock_udp_ep_t *addr);
 ssize_t sock_tls_read(sock_tls_t *sock, void *data, size_t max_len);
 ssize_t sock_tls_write(sock_tls_t *sock, const void *data, size_t max_len);
 int sock_dtls_create(sock_tls_t *sock, const sock_udp_ep_t *local, const sock_udp_ep_t *remote, uint16_t flags, WOLFSSL_METHOD *method);

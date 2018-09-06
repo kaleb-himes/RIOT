@@ -28,19 +28,18 @@
 
 #include <net/sock.h>
 #include <wolfssl/ssl.h>
-static int wolfssl_is_initialized = 0;
 
 #define MODE_TLS 0
 #define MODE_DTLS 1
 
-void dtls_socket_close(sock_tls_t *sk)
+void sock_dtls_close(sock_tls_t *sk)
 {
     sock_udp_close(&sk->conn.udp);
     wolfSSL_free(sk->ssl);
 }
 
 
-void dtls_set_endpoint(sock_tls_t *sk, const sock_udp_ep_t *addr)
+void sock_dtls_set_endpoint(sock_tls_t *sk, const sock_udp_ep_t *addr)
 {
     printf("wolfSSL: Setting peer address and port\n");
     memcpy(&sk->peer_addr, addr, sizeof (sock_udp_ep_t));
@@ -61,14 +60,9 @@ ssize_t sock_tls_write(sock_tls_t *sock, const void *data, size_t max_len)
 int sock_dtls_create(sock_tls_t *sock, const sock_udp_ep_t *local, const sock_udp_ep_t *remote, uint16_t flags, WOLFSSL_METHOD *method)
 {
     int ret;
-    if (!wolfssl_is_initialized) {
-        wolfSSL_Init();
-        wolfSSL_Debugging_ON();
-        wolfssl_is_initialized++;
-    }
     if (!sock)
         return -EINVAL;
-    XMEMSET(&sock, 0, sizeof(sock_tls_t));
+    XMEMSET(sock, 0, sizeof(sock_tls_t));
     sock->ctx = wolfSSL_CTX_new(method);
     if (!sock->ctx)
         return -ENOMEM;
@@ -78,14 +72,6 @@ int sock_dtls_create(sock_tls_t *sock, const sock_udp_ep_t *local, const sock_ud
         XFREE(sock->ctx, NULL, 0);
         return ret;
     }
-    sock->ssl = wolfSSL_new(sock->ctx);
-    if (!sock->ssl) {
-        sock_udp_close(&sock->conn.udp);
-        XFREE(sock->ctx, NULL, 0);
-        return -ENOMEM;
-    }
-    wolfSSL_SetIOReadCtx(sock->ssl, sock);
-    wolfSSL_SetIOWriteCtx(sock->ssl, sock);
     if (remote) {
         XMEMCPY(&sock->peer_addr, remote, sizeof(sock_udp_ep_t));
     }
@@ -96,7 +82,7 @@ int sock_dtls_create(sock_tls_t *sock, const sock_udp_ep_t *local, const sock_ud
 
 #ifdef MODULE_SOCK_TCP
 
-void tls_socket_close(sock_tls_t *sk)
+void sock_tls_close(sock_tls_t *sk)
 {
     sock_tcp_close(&sk->conn.tcp);
     wolfSSL_free(sk->ssl);
@@ -168,7 +154,7 @@ int sock_tls_connect(WOLFSSL_METHOD *method,
 int strncasecmp(const char *s1, const char * s2, unsigned int sz)
 {
     for( ; sz>0; sz--)
-        if(toupper(s1++) != toupper(s2++))
+        if(toupper(*s1++) != toupper(*s2++))
 	    return 1;
     return 0;	
 }
