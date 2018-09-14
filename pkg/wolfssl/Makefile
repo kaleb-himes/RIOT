@@ -9,12 +9,12 @@ PKG_LICENSE=GPLv2
 export RIOT_CFLAGS = ${CFLAGS} ${INCLUDES}
 
 all: git-download
-	mkdir $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/
-	mkdir $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/src
-	mkdir $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/wolfcrypt
-	mkdir $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/wolfcrypt/src
-	mkdir $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/wolfcrypt/test
-	mkdir $(PKG_BUILDDIR)/../../../$(BOARD)/sock_tls/
+	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/
+	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/src
+	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/wolfcrypt
+	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/wolfcrypt/src
+	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/wolfcrypt/test
+	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/sock_tls/
 	cp Makefile.wolfssl $(PKG_BUILDDIR)/Makefile
 	"$(MAKE)" -C $(PKG_BUILDDIR)/
 
