@@ -35,26 +35,12 @@
 void sock_dtls_close(sock_tls_t *sk)
 {
     sock_udp_close(&sk->conn.udp);
-    wolfSSL_free(sk->ssl);
 }
-
 
 void sock_dtls_set_endpoint(sock_tls_t *sk, const sock_udp_ep_t *addr)
 {
     printf("wolfSSL: Setting peer address and port\n");
     memcpy(&sk->peer_addr, addr, sizeof (sock_udp_ep_t));
-}
-
-ssize_t sock_tls_read(sock_tls_t *  sock, 
-        void        * data, 
-        size_t  	max_len)
-{
-    return wolfSSL_read(sock->ssl, data, max_len);
-}
-
-ssize_t sock_tls_write(sock_tls_t *sock, const void *data, size_t max_len)
-{
-    return wolfSSL_write(sock->ssl, data, max_len);
 }
 
 int sock_dtls_create(sock_tls_t *sock, const sock_udp_ep_t *local, const sock_udp_ep_t *remote, uint16_t flags, WOLFSSL_METHOD *method)
@@ -80,75 +66,78 @@ int sock_dtls_create(sock_tls_t *sock, const sock_udp_ep_t *local, const sock_ud
     return 0;
 }
 
+static int tls_session_create(sock_tls_t *sk)
+{
+    if (!sk || !sk->ctx)
+        return -EINVAL;
+    sk->ssl = wolfSSL_new(sk->ctx);
+    if (sk->ssl == NULL) {
+        printf("Error allocating ssl session\n");
+        return -ENOMEM;
+    }
+    wolfSSL_SetIOReadCtx(sk->ssl, sk);
+    wolfSSL_SetIOWriteCtx(sk->ssl, sk);
+    return 0;
+}
+
+static void tls_session_destroy(sock_tls_t *sk)
+{
+    if (!sk || sk->ssl)
+        return;
+    wolfSSL_free(sk->ssl);
+}
+
+int sock_dtls_session_create(sock_tls_t *sk)
+{
+	return tls_session_create(sk);
+}
+
+void sock_dtls_session_destroy(sock_tls_t *sk)
+{
+	tls_session_destroy(sk);
+}
+
 #ifdef MODULE_SOCK_TCP
+
+int sock_tls_session_create(sock_tls_t *sk)
+{
+	return tls_session_create(sk);
+}
+
+void sock_tls_session_destroy(sock_tls_t *sk)
+{
+    tls_session_destroy(sk);
+}
 
 void sock_tls_close(sock_tls_t *sk)
 {
     sock_tcp_close(&sk->conn.tcp);
-    wolfSSL_free(sk->ssl);
 }
 
-int sock_tls_accept(WOLFSSL_METHOD *method, sock_tcp_queue_t *queue,
-		sock_tls_t **  	sock,
-		uint32_t  	timeout ) 	
+int sock_tls_create(sock_tls_t *sock, const sock_udp_ep_t *local, const sock_udp_ep_t *remote, uint16_t flags, WOLFSSL_METHOD *method)
 {
     int ret;
-    *sock = gnrc_sock_alloc(method, MODE_TLS);
-    if (!*sock)
+    if (!sock)
+        return -EINVAL;
+    XMEMSET(sock, 0, sizeof(sock_tls_t));
+    sock->ctx = wolfSSL_CTX_new(method);
+    if (!sock->ctx)
         return -ENOMEM;
-    ret = sock_tcp_accept(queue, &(*sock->conn.tcp));
-    if (ret < 0) {
-        wolfSSL_Free(*sock->ctx);
-        XFREE(*sock);
-        *sock = 0;
-        return ret;
-    }
-    *sock->ssl = wolfSSL_new(*sock->ctx);
-    wolfSSL_SetIOReadCtx(*sock->ssl, *sock);
-    wolfSSL_SetIOWriteCtx(*sock->ssl, *sock);
-    ret = wolfSSL_accept(sk->ssl);
-    if (ret == SSL_SUCCESS) {
-        wolfSSL_set_using_nonblock(sk->ssl, 0);
-        return 0;
-    } else {
-        return ret;
-    }
-    return 0;
-}
 
-int sock_tls_connect(WOLFSSL_METHOD *method, 
-        const sock_tcp_ep_t *  	remote,
-        sock_tls_t **sock;
-		uint16_t  	local_port,
-		uint16_t  	flags)
-{
-    int ret;
-    *sock = gnrc_sock_alloc(method, MODE_TLS);
-    if (!*sock)
-        return -ENOMEM;
-    ret = sock_tcp_connect(&(*sock->conn.tcp), remote, local_port, flags);
+    ret = sock_udp_create(&sock->conn.udp, local, remote, flags);
     if (ret < 0) {
-        wolfSSL_Free(*sock->ctx);
-        XFREE(*sock);
-        *sock = 0;
+        XFREE(sock->ctx, NULL, 0);
         return ret;
     }
-    *sock->ssl = wolfSSL_new(*sock->ctx);
-    wolfSSL_SetIOReadCtx(*sock->ssl, *sock);
-    wolfSSL_SetIOWriteCtx(*sock->ssl, *sock);
-    ret = wolfSSL_connect(*sock->ssl);
-    if (ret == SSL_SUCCESS) {
-        wolfSSL_set_using_nonblock(*sock->ssl, 0);
-        return 0;
-    } else {
-        return ret;
+    if (remote) {
+        XMEMCPY(&sock->peer_addr, remote, sizeof(sock_udp_ep_t));
     }
+    wolfSSL_SetIORecv(sock->ctx, GNRC_Receive);
+    wolfSSL_SetIOSend(sock->ctx, GNRC_SendTo);
     return 0;
 }
 
 #endif
-
-
 
 #include <ctype.h>
 int strncasecmp(const char *s1, const char * s2, unsigned int sz)

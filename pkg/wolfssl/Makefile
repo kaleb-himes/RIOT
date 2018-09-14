@@ -1,7 +1,8 @@
 PKG_NAME=wolfssl
-PKG_URL=https://github.com/danielinux/wolfssl.git
+#PKG_URL=https://github.com/danielinux/wolfssl.git
 #PKG_URL=https://github.com/wolfssl/wolfssl.git
-PKG_VERSION=ff380ff1577151f7c9fc535fd3d9e92f7f04e1d6
+PKG_URL=/home/dan/src/wolfssl
+PKG_VERSION=HEAD
 PKG_LICENSE=GPLv2
 
 .PHONY: all
