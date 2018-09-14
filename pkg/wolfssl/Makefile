@@ -5,13 +5,11 @@ PKG_VERSION=859475e30f95a8b12132341da7bb4a2a25869656
 PKG_LICENSE=GPLv2
 
 .PHONY: all
+all:  # Nothing to do here when building
 
-all: git-download
-	mkdir -p $(BINDIR)/wolfssl/src
-	mkdir -p $(BINDIR)/wolfssl/wolfcrypt/src
-	mkdir -p $(BINDIR)/wolfssl/wolfcrypt/test
-	mkdir -p $(BINDIR)/sock_tls/
-	cp Makefile.wolfssl $(PKG_BUILDDIR)/Makefile
-	"$(MAKE)" -C $(PKG_BUILDDIR)/
+prepare:
+	cp Makefile.wolfssl $(PKG_BUILDDIR)/src/Makefile
+	cp Makefile.wolfcrypt $(PKG_BUILDDIR)/wolfcrypt/src/Makefile
+	cp Makefile.wolfcrypt-test $(PKG_BUILDDIR)/wolfcrypt/test/Makefile
 
 include $(RIOTBASE)/pkg/pkg.mk

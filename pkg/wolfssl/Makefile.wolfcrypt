@@ -1,0 +1,163 @@
+MODULE = wolfcrypt
+
+NO_AUTO_SRC = 1
+
+#-------------------------------------------------------------#
+# Default CRYPTO source files                                 #
+#-------------------------------------------------------------#
+SRC +=  error.c \
+        hash.c \
+        logging.c \
+        wc_encrypt.c \
+        wc_port.c \
+        wolfmath.c
+
+#-------------------------------------------------------------#
+# Optional CRYPTO source files                                #
+#-------------------------------------------------------------#
+
+#Add to src when not using build option: NO_AES
+SRC +=  aes.c
+
+#Add to src when NOT using build option: NO_RC4
+SRC +=  arc4.c
+
+#Add to src when NOT using build option: NO_ASN
+SRC +=  asn.c
+
+# Add to src when using build option: HAVE_BLAKE2
+SRC +=  blake2b.c
+
+# Add to src when using build option: HAVE_CAMELLIA
+SRC +=  camellia.c
+
+# Add to src when using build option: HAVE_CHACHA
+SRC +=  chacha.c
+
+# Add to src when using build option(s): | HAVE_CHACHA
+#                                        | &&
+#                                        | HAVE_POLY1305
+SRC +=  chacha20_poly1305.c
+
+# Add to src when using build option(s): | HAVE_CMAC
+#                                        | &&
+#                                        | !NO_AES
+#                                        | &&
+#                                        | WOLFSSL_AES_DIRECT
+SRC +=  cmac.c
+
+#Add to src when NOT using build option: NO_CODING
+SRC +=  coding.c
+
+# Add to src when using build option: HAVE_LIBZ
+SRC +=  compress.c
+
+# Add to src when using build option: HAVE_CURVE25519
+SRC +=  curve25519.c
+
+#Add to src when NOT using build option: NO_DES3
+SRC +=  des3.c
+
+#Add to src when NOT using build option: NO_DH
+SRC +=  dh.c
+
+#Add to src when NOT using build option: NO_DSA
+SRC +=  dsa.c
+
+# Add to src when using build option: HAVE_ECC
+SRC +=  ecc.c
+
+# Add to src when using build option: HAVE_ED25519
+SRC +=  ed25519.c
+
+# FILE CURRENTLY INCLUDED INLINE: Future refactor will change
+# this default functionality and this line will then need
+# to be added with the proper configuration
+#SRC +=  evp.c
+
+# Add to src when using build option(s): | ( HAVE_CURVE25519 || HAVE_ED25519 )
+#                                        | &&
+#                                        | ( CURVE25519_SMALL || ED25519_SMALL )
+SRC +=  fe_operations.c
+SRC +=  fe_low_mem.c
+
+# Add to src when using build option(s): | HAVE_ED25519
+#                                        | &&
+#                                        | ED25519_SMALL
+SRC +=  ge_operations.c
+SRC +=  ge_low_mem.c
+
+#Add to src when NOT using build option: NO_HMAC
+SRC +=  hmac.c
+
+# Add to src when using build option: HAVE_HC128
+SRC +=  hc128.c
+
+# Add to src when using build option: HAVE_IDEA
+SRC +=  idea.c
+
+#Add to src when using NORMAL MATH libraries
+#(Default if not using build option: USE_FAST_MATH)
+SRC +=  integer.c
+
+# Add to src when using build option: WOLFSSL_MD2
+SRC +=  md2.c
+
+#Add to src when NOT using build option: NO_MD4
+SRC +=  md4.c
+
+#Add to src when NOT using build option: NO_MD5
+SRC +=  md5.c
+
+# Add to src when using build option: USE_WOLFSSL_MEMORY
+SRC +=  memory.c
+
+# Add to src when using build option: WOLFSSL_MISC_INCLUDED
+#SRC +=  misc.c
+
+# Add to src when using build option: HAVE_PKCS7
+SRC +=  pkcs7.c
+
+#Add to src when NOT using EITHER build option(s): NO_ASN && NO_PWDBASED
+SRC +=  pkcs12.c
+
+# Add to src when using build option: HAVE_POLY1305
+SRC +=  poly1305.c
+
+#Add to src when NOT using build option: NO_PWDBASED
+SRC +=  pwdbased.c
+
+#Add to src when NOT using build option: NO_RABBIT
+SRC +=  rabbit.c
+
+#Add to src when NOT using build option: WC_NO_RNG
+SRC +=  random.c
+
+# Add to src when using build option: WOLFSSL_RIPEMD
+SRC +=  ripemd.c
+
+#Add to src when NOT using build option: NO_RSA
+SRC +=  rsa.c
+
+#Add to src when NOT using build option: NO_SHA
+SRC +=  sha.c
+
+#Add to src when NOT using build option: NO_SHA256
+SRC +=  sha256.c
+
+# Add to src when using build option: WOLFSSL_SHA3
+SRC +=  sha3.c
+
+# Add to src when using build option: WOLFSSL_SHA512 || WOLFSSL_SHA384
+SRC +=  sha512.c
+
+#Add to src when NOT using build option: NO_SIG_WRAPPER
+SRC +=  signature.c
+
+# Add to src when using build option: WOLFCRYPT_HAVE_SRP
+SRC +=  srp.c
+
+#Add to src when using build option: USE_FAST_MATH
+SRC += tfm.c
+
+include $(RIOTBASE)/Makefile.base

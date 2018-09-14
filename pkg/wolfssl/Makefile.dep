@@ -1,0 +1,8 @@
+ifneq (,$(filter wolfssl,$(USEPKG)))
+  USEMODULE += sock_tls
+  USEMODULE += wolfcrypt
+endif
+
+ifneq (,$(filter wolfcrypt-test,$(USEMODULE)))
+  USEMODULE += wolfcrypt
+endif
