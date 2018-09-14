@@ -35,6 +35,8 @@ USEMODULE += shell_commands
 USEPKG += wolfssl
 USEMODULE += wolfcrypt-test
 
+USEMODULE += wolfcrypt_ecc
+
 CFLAGS+=-g -ggdb3
 
 CFLAGS += -DDTLS_DEFAULT_PORT=$(DTLS_PORT) -DDTLS_WOLFSSL

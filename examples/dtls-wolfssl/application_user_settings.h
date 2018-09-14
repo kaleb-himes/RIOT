@@ -22,7 +22,6 @@
 #define HAVE_FFDHE_2048
 #define HAVE_CHACHA
 #define HAVE_POLY1305
-#define HAVE_ECC
 #define HAVE_CURVE25519
 #define CURVED25519_SMALL
 #define HAVE_ONE_TIME_AUTH
@@ -51,9 +50,6 @@
 
 #undef NO_MAIN_DRIVER
 #define NO_MAIN_DRIVER
-
-#undef HAVE_ECC
-#define HAVE_ECC
 
 #undef TFM_TIMING_RESISTANT
 #define TFM_TIMING_RESISTANT

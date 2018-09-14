@@ -1,5 +1,13 @@
 MODULE = wolfcrypt
 
+SUBMODULES += 1
+
+# Do not fail for module that do not have a file
+# TODO it may be removed if at the end there is no conflicts I just let it here
+# TODO for now to simplify development
+# TODO list modules where it is the case
+SUBMODULES_NOFORCE = 1
+
 NO_AUTO_SRC = 1
 
 #-------------------------------------------------------------#
@@ -63,9 +71,6 @@ SRC +=  dh.c
 
 #Add to src when NOT using build option: NO_DSA
 SRC +=  dsa.c
-
-# Add to src when using build option: HAVE_ECC
-SRC +=  ecc.c
 
 # Add to src when using build option: HAVE_ED25519
 SRC +=  ed25519.c
