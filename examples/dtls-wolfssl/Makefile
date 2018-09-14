@@ -33,7 +33,7 @@ USEMODULE += shell
 USEMODULE += shell_commands
 
 USEPKG += wolfssl
-USEMODULE+=sock_tls
+USEMODULE += wolfcrypt-test
 
 CFLAGS+=-g -ggdb3
 
