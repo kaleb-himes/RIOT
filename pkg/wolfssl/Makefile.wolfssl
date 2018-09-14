@@ -5,8 +5,8 @@ SRC :=  src/internal.c \
         src/wolfio.c \
         src/keys.c \
         src/ssl.c \
-        src/tls.c 
-		
+        src/tls.c
+
 #-------------------------------------------------------------#
 # Optional SSL/TLS source files                               #
 #-------------------------------------------------------------#
