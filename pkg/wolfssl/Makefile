@@ -8,7 +8,6 @@ PKG_LICENSE=GPLv2
 
 all: git-download
 	mkdir -p $(BINDIR)/wolfssl/src
-	mkdir -p $(BINDIR)/wolfssl/wolfcrypt
 	mkdir -p $(BINDIR)/wolfssl/wolfcrypt/src
 	mkdir -p $(BINDIR)/wolfssl/wolfcrypt/test
 	mkdir -p $(BINDIR)/sock_tls/
