@@ -6,8 +6,6 @@ PKG_LICENSE=GPLv2
 
 .PHONY: all
 
-export RIOT_CFLAGS = ${CFLAGS} ${INCLUDES}
-
 all: git-download
 	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/
 	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/src
