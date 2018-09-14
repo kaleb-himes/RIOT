@@ -7,7 +7,6 @@ PKG_LICENSE=GPLv2
 .PHONY: all
 
 all: git-download
-	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/
 	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/src
 	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/wolfcrypt
 	mkdir -p $(PKG_BUILDDIR)/../../../$(BOARD)/wolfssl/wolfcrypt/src
